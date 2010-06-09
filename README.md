@@ -1,6 +1,6 @@
 # Reverse jQuery Selector Finder
 
-In some specific situations you may want to identify an HTML element with a unique ID in order to retreive it, in another browser with the same page (for example: visitor mouse & keyboard real-time monitoring).
+In some specific situations you may want to identify an HTML element in an unique way - with a jQuery Selector or XPath - in order to select it in another browser - different DOM - (for example: visitor mouse & keyboard real-time monitoring).
 
 
 ## Usage
