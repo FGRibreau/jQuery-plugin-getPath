@@ -13,13 +13,11 @@
         if (el.previousElementSibling && el.previousElementSibling == null)
         	return 0;
 
-        var _el = el,
-			i = 0,
-			elT = el.nodeName;
-			
+        var _el = el, i = 0, elT = el.nodeName;
+
         while (_el = next(_el)) {
             if (_el.nodeName == elT)
-            i++;
+            	i++;
         }
         return i;
     };
@@ -28,8 +26,7 @@
         var first = firstEl || false,
 			sel = '', index = false;
 
-        if (el.id && el.id.indexOf('.') == -1) {
-            //because $('#my.id') didn't work width jQuery
+        if (el.id && el.id.indexOf('.') == -1) {//because $('#my.id') didn't work width jQuery
             sel += '#' + el.id;
         } else {
             sel += el.nodeName.toLowerCase();
