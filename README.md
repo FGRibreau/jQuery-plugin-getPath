@@ -21,9 +21,9 @@ In some specific situations you may want to identify an HTML element in an uniqu
 	});
 	
 $.getjQueryPath(el); may return jQueryPath_document or jQueryPath_window. 
-They just are equivalent for window.document and window object because jQuery doesn't have any selector for them.
+They just are equivalents for window.document and window object because jQuery doesn't have any selector for them.
 
-Workaround:
+## Workaround
 
 	var $el, path = $.getjQueryPath(window);
 
