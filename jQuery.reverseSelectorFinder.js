@@ -12,7 +12,7 @@
     var getIndex = function(el) {
         if (el.previousElementSibling && el.previousElementSibling == null)
         	return 0;
-
+		
         var _el = el, i = 0, elT = el.nodeName;
 
         while (_el = next(_el)) {
@@ -29,9 +29,10 @@
         if (el.id && el.id.indexOf('.') == -1) {//because $('#my.id') didn't work width jQuery
             sel += '#' + el.id;
         } else {
+			
             sel += el.nodeName.toLowerCase();
 
-            indexEl = getIndex(el);
+            var indexEl = getIndex(el);
             if (indexEl || (indexEl == 0 && first)) {
                 sel += ':eq(' + indexEl + ')';
             } else if (el.className) {
@@ -45,7 +46,14 @@
 
     $.getjQueryPath = function(el) {
         if (!el) return false;
-
+		
+		if(el.nodeName && el.nodeName.toLowerCase() == '#document')
+			return 'jQueryPath_document';// == window.document
+		
+		if(el.location)
+			return 'jQueryPath_window';// == window
+		
+		
         var path = findBestSelector(el, true);
 
         while (	el.parentNode && el.parentNode.nodeName !== '#document'
