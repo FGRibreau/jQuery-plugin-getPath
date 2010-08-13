@@ -1,20 +1,23 @@
-(function($) {
+$(function(){
+	(function($) {
     //Helper (we use jQuery as less as possible)
-    var next = function() {
-        var t = $('<div/>')[0];
-        if (typeof t.previousElementSibling == 'undefined')
-        	return function(el) {return $(el).prev()[0]};
-        else
-        	return function(el) {return el.previousElementSibling;};
-    }();
-
+    
+	var next = (function(){
+	        var t = $('<div><p></p><p></p></div>')[0].childNodes[1];
+	
+	        if (t.previousElementSibling && typeof(t.previousElementSibling) === 'object'){
+				return function(el) {return el.previousElementSibling;};
+			} else {
+				return function(el) {return $(el).prev()[0]};
+			}
+	})();
+	
     //Retreive the index of an element
     var getIndex = function(el) {
-        if (el.previousElementSibling && el.previousElementSibling == null)
+        if (el.previousElementSibling === null)
         	return 0;
 		
         var _el = el, i = 0, elT = el.nodeName;
-
         while (_el = next(_el)) {
             if (_el.nodeName == elT)
             	i++;
@@ -33,11 +36,8 @@
             sel += el.nodeName.toLowerCase();
 
             var indexEl = getIndex(el);
-            if (indexEl || (indexEl == 0 && first)) {
-                sel += ':eq(' + indexEl + ')';
-            } else if (el.className) {
-                var l = el.className.split(' ');
-                sel += '.' + (l.length > 0 ? l.join('.') : el.className);
+			if(indexEl || first){
+				sel += ':eq(' + indexEl + ')';
             }
         }
 
@@ -65,4 +65,5 @@
         return path;
     }
 
-} (jQuery));
+	} (jQuery));
+});

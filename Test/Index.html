@@ -4,17 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<title>index</title>
+	<title>jQuery Reverse Selector Finder - Tests</title>
 	<style type="text/css" media="screen">
 	#frame {display:none;}
 	
 	/* quick & dirty */
 	*{padding:0;margin:0;list-style:none;}
 	#test_res{text-align:center;padding-top:10px;}
-	#test_res,#test_pass, #test_fail{padding:0;margin:0;font-size:15px;font-family:Helvetiva;width:100%;max-height:40%;overflow:auto;}
+	#test_res,#test_pass, #test_fail{
+	padding:0;margin:0;font-size:15px;font-family:'Helvetiva';
+	width:100%;overflow:auto;}
 	
-	#test_pass,#test_fail{width:98%;float:left;padding:1%;}
+	#test_pass,#test_fail{height:100px;width:48%;float:left;padding:1%;}
 	#test_pass{color:#88EF3B;}
+	#test_fail{color:#FF7F7F;}
 	</style>
 	
 	<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -23,31 +26,44 @@
 		function runTest(){
 			var pass = 0,
 				fail = 0,
-				$elmts = $('*'),
+				$elmts = $('body').add(document).add(window).add('*'),
 				elmtsLgth = $elmts.length-1,
 				i = 0,
 				$results = $('#test_res'),
 				$pass = $('#test_pass ul'),
 				$fail = $('#test_fail ul');
 			
+			var t = +(new Date);
+			
 			function testNextElmt(){
 				if(i > elmtsLgth){
 					updateResult(true);
+					
+					if(pass == elmtsLgth+1){
+						$('#test_res').text($('#test_res').text() + ' with success !');
+					}
+					
+					$('#test_res').text($('#test_res').text() + ' In '+((+(new Date)-t)/1000) + ' secs.');
 					return;
 				}
 				
-				//Marquer l'élément
 				$elmts.eq(i).attr('rel',i);
 				
-				//Si l'élément retournée est le même que l'élément marqué => OK
-				var path = $.getjQueryPath($elmts[i]),
+				var path = $.getjQueryPath($elmts[i]), $el;
+				
+				if(path === 'jQueryPath_document')
+					$el = $(document);
+				else if(path === 'jQueryPath_window')
+					$el = $(window);
+				else
 					$el = $(path);
 				
-				if($el.length == 1 && $el.attr('rel') == i){
+				if($el && $el.length == 1 && $el.attr('rel') == i){
 					pass++;
 					$pass.prepend('<li>' + path +'</li>');
 				}else{
 					console && console.log && console.log($elmts[i]);
+					
 					fail++;
 					$fail.prepend('<li>'+path+'</li>');
 				}
@@ -55,14 +71,12 @@
 				updateResult();
 				
 				i++;
-				window.setTimeout(function(){testNextElmt();},10);
+				window.setTimeout(function(){testNextElmt();});
 			}
 			
 			function updateResult(done){
-				$('#test_res').text(pass + ' Pass || ' + fail + ' Fail '
-									+(done ? '... All test done' : '... and testing'));
+				$('#test_res').text(pass + ' Pass || ' + fail + ' Fail '+(done ? '... All test done' : '... and testing'));
 			}
-			
 			
 			testNextElmt();
 		}
@@ -433,6 +447,7 @@
 							<div class="mail"></div>
 						</form>
 					</div></div>
+					<iframe src="about:blank"><div>Test</div></iframe>
 					<div class="clearer"></div>
 				</div>
 			</div>	
@@ -443,7 +458,9 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-	runTest();
+	$(function(){
+		runTest();
+	});
 </script>
 </body>
 </html>
