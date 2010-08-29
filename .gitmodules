@@ -1,0 +1,3 @@
+[submodule "TestAndBench/JSLitmus"]
+	path = TestAndBench/JSLitmus
+	url = http://github.com/smith/JSLitmus.git
