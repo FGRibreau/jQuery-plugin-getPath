@@ -1,4 +1,4 @@
-# Reverse jQuery Selector Finder
+# jQuery getPath
 
 In some specific situations you may want to identify an HTML element in an unique way - with a jQuery Selector or XPath - in order to select it in another browser - different DOM - (for example: visitor mouse & keyboard real-time monitoring).
 
@@ -8,7 +8,7 @@ In some specific situations you may want to identify an HTML element in an uniqu
 	$('body').bind('click.monitoring',function(e){
 		//Get the element's jQuery selector
 		//It'll return something like this: #example-5>h4:eq(0)
-		var sel = $.getjQueryPath(e.target);
+		var sel = $.getPath(e.target); //is the same as $(e.target).getPath();
 		
 		//Send to the server what element was clicked
 		//(and maybe replicate this event on the administrator screen)
@@ -20,12 +20,12 @@ In some specific situations you may want to identify an HTML element in an uniqu
 		return false;
 	});
 	
-$.getjQueryPath(el); may return jQueryPath_document or jQueryPath_window. 
+$.getPath(el); may return jQueryPath_document or jQueryPath_window. 
 They just are equivalents for window.document and window object because jQuery doesn't have any selector for them.
 
 ## Workaround
 
-	var $el, path = $.getjQueryPath(window);
+	var $el, path = $.getPath(window);
 
 	if(path === 'jQueryPath_document')
 		$el = $(document);

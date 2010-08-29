@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>jQuery getPath - Tests</title>
+	<style type="text/css" media="screen">
+	#frame {display:none;}
+	
+	/* quick & dirty */
+	*{padding:0;margin:0;list-style:none;}
+	#test_res{text-align:center;padding-top:10px;}
+	#test_res,#test_pass, #test_fail{
+	padding:0;margin:0;font-size:15px;font-family:'Helvetiva';
+	width:100%;overflow:auto;}
+	
+	#test_pass,#test_fail{height:100px;width:48%;float:left;padding:1%;}
+	#test_pass{color:#88EF3B;}
+	#test_fail{color:#FF7F7F;}
+	</style>
+	
+	<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="../jQuery.getPath.js"></script>
+	<script type="text/javascript" charset="utf-8" src="othersjQueryPlugins/jQuery.getPathByDaveCardwell.js"></script>
+	<script type="text/javascript" charset="utf-8" src="othersjQueryPlugins/jQuery.getPathByBlixt.js"></script>
+
+	<script type="text/javascript" charset="utf-8">
+		function runTest(){
+			var pass = 0,
+				fail = 0,
+				$elmts = $('body').add('*').add(document).add(window),
+				elmtsLgth = $elmts.length-1,
+				i = 0,
+				$results = $('#test_res'),
+				$pass = $('#test_pass ul'),
+				$_pass = $('<div/>'),
+				$fail = $('#test_fail ul'),
+				$_fail = $('<div/>');
+			
+			var t = +(new Date);
+			
+			updateResult();
+			
+			function testNextElmt(){
+				if(i > elmtsLgth){
+					updateResult(true);
+					
+					if(pass == elmtsLgth+1){
+						$('#test_res').text($('#test_res').text() + ' with success !');
+					}
+					
+					$pass.append($_pass);
+					$fail.append($_fail);
+					
+					$('#test_res').text($('#test_res').text() + ' In '+((+(new Date)-t)/1000) + ' secs.');
+					return;
+				}
+				
+				$elmts.eq(i).attr('rel',i);
+				
+				var path = $elmts.eq(i).getPath(), $el;
+				//var path = $elmts.eq(i).getPathByBlixtv2(), $el = null;
+				
+				if(path === 'jQueryPath_document')
+					$el = $(document);
+				else if(path === 'jQueryPath_window')
+					$el = $(window);
+				else
+					$el = $(path);
+				
+				if($el && $el.length == 1 && $el.attr('rel') == i){
+					pass++;
+					$_pass.prepend('<li>' + path +'</li>');
+				}else{
+					console && console.log && console.log($elmts[i]);
+					
+					fail++;
+					$_fail.prepend('<li>'+path+'</li>');
+				}
+				
+				i++;
+				window.setTimeout(function(){testNextElmt();});
+			}
+			
+			function updateResult(done){
+				$('#test_res').text(pass + ' Pass || ' + fail + ' Fail '+(done ? '... All test done' : '... and testing'));
+			}
+			
+			testNextElmt();
+		}
+	</script>
+</head>
+<body>
+	<div id="test_res"></div>
+	<div id="test_pass"><ul></ul></div>
+	<div id="test_fail"><ul></ul></div>
+	
+	<div id="test2_res"></div>
+	<div id="test2_pass"><ul></ul></div>
+	<div id="test2_fail"><ul></ul></div>
+	
+<div id="frame">
+	<div id="topbarwide">
+		<div id="topbar">
+			<h1><a href="#" class="logo" title="Chat Commercial - izd">izd</a></h1>
+			<!--<div class="beta">BETA</div>-->
+			<div id="contextbar">
+				<div class="go_admin">
+					<a href="#">Accès client</a>
+
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menuglobal">
+					<li class="lvl1 try">
+						<a href="#" class="lvl1_link" alt="Tarifs et Inscription" title="Tarifs et Inscription"><img src="" alt="Tarifs et Inscription" class="pict"/>Tarifs et Inscription</a>
+					</li>
+					<li class="lvl1 functionality">
+
+						<a href="#" class="lvl1_link" alt="Fonctionnalités" title="Fonctionnalités"><img src="" alt="Fonctionnalités" class="pict"/>Fonctionnalités</a>
+					</li>
+					<li class="lvl1 testimonial">
+						<a href="#" class="lvl1_link" alt="Clients & Témoignages" title="Clients & Témoignages"><img src="" alt="Clients & Témoignages" class="pict"/>Clients & Témoignages</a>
+					</li>					
+					<li class="lvl1 about">
+						<a href="#" class="lvl1_link" alt="A propos" title="A propos"><img src="" alt="A propos" class="pict"/>A propos</a>
+
+					</li>
+					<li class="lvl1 contact">
+						<div>
+							<a href="#" class="lvl1_link" alt="Contact" title="Contact"><img src="" alt="Contact" class="pict"/>Contact</a>
+						</div>			
+					</li>					
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	<div id='mainwide'>
+		<div id='maininner'>
+
+	<div id="catcheyewide">
+		<div id="catcheye">
+			<div id="catcheyeinner">
+
+				<h2 class="catcheye_label">Some text</h2>				
+
+				<div class="left actions">
+
+					<div class="margin_big_b">
+						izd est une <span class='strong italic'>Some text</span> qui vous permet de <span class='strong italic'>Some text</span> à vos visiteurs et de les <span class='strong italic'>Some text</span> vers la solution ou le produit qui répondra à <span class='strong italic'>Some text</span>.					</div>
+					<a href="#" class="btn_big_purple_home margin_big_b" title="S'inscrire" alt="S'inscrire">S'inscrire<b>7 jours d'essai gratuit</b><span></span></a>
+
+					<div class="compatibility"><div class="compatibility_inner">
+						<span>--</span>						
+						<img src="" title="Gtalk" alt="Gtalk"/>
+						<img src="" title="Jabber" alt="Jabber"/>
+					</div></div>
+				</div>				
+				<div class="right example">
+					<a href="#" class="chatbox_exemple">
+
+						<span class="chat_client">Some text</span>	
+						<span class="chat_operator">Some text</span>
+						<span class="chat_alert strong">Some text</span>
+					</a>
+					<div class="beta_example"></div>
+				</div>				
+				<div class="clearer"></div>
+
+				<div class="genius" id="OK.thisWillBreak_getPathByBlixt"></div>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="argumentswide" style="top:-9999px;">
+		<div id="argumentsinner">
+
+			<div class="carousel_slider"></div>
+
+			<div class="carousel arguments">
+				<ul>
+					<li class="carousel_1">
+
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_dialog"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+								<a href="#" title="en savoir plus" class="carousel_see_more">en savoir plus</a>
+
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_orient"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+
+								<a href="#" title="en savoir plus" class="carousel_see_more">en savoir plus</a>
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_incit"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+
+								<p>Some text</p>
+								<a href="#" title="en savoir plus" class="carousel_see_more">en savoir plus</a>
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_control"><tr><td>
+								<h3>Some text</h3>
+
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+								<a href="#" title="en savoir plus" class="carousel_see_more">en savoir plus</a>
+							</div>
+						</div></div>
+						<div class="clearer"></div>
+					</li>
+
+					<li class="carousel_2">
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_convert"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_augment"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_reduce"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_lever"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+
+						</div></div>
+						<div class="clearer"></div>
+					</li>
+					<li class="carousel_3">
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_attendre"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_human"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_mesure"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_eradiquer"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+						</div></div>
+						<div class="clearer"></div>
+					</li>
+					<li class="carousel_4">
+						<div class="carousel_item left"><div class="carousel_item_inner">
+
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_traiter"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_accelerer"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_visu"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+						</div></div>
+						<div class="carousel_item left"><div class="carousel_item_inner">
+
+							<table cellspacing="0" cellpadding="0" class="carousel_title carousel_cout"><tr><td>
+								<h3>Some text</h3>
+							</td></tr></table>
+							<div class="carousel_desc">
+								<p>Some text</p>
+							</div>
+						</div></div>
+						<div class="clearer"></div>
+
+					</li>
+				</ul>
+			</div>						
+
+		</div>	
+	</div>
+
+	<div id="testimonialswide">
+		<div id="testimonials">
+			<div id="testimonialsinner">
+
+				<div class="testimonial">
+					<div class="testimonial_item testimonial_link" id="temoignage-10">
+
+						<div class="testimonial_down"></div>
+						<table class="testimonial_txt" cellpadding="0" cellspacing="0"><tr><td valign="center">
+							<p>								
+								(...) Je dois avouer que j'ai &eacute;t&eacute; agr&eacute;ablement surpris par sa facilit&eacute; de prise en main.
+								<br/>
+								(...) L'int&eacute;gration se fait simplement.
+							</p>
+
+						</td></tr></table>	
+						<div class="testimonial_autor">Olivier Sauvage,<span>Capitaine Commerce</span></div>												
+					</div>
+					<div class="testimonial_item testimonial_link" id="temoignage-11">
+						<div class="testimonial_down"></div>
+						<table class="testimonial_txt" cellpadding="0" cellspacing="0"><tr><td valign="center">
+							<p>
+								(...) izd rassure nos visiteurs qui n'h&eacute;sitent plus &agrave; poser les questions qui pourraient freiner leur achat.
+							</p>
+
+						</td></tr></table>
+						<div class="testimonial_autor">Nicolas Pelerins,<span>MieuxVousAssurer.com</span></div>	
+					</div>					
+					<div class="testimonial_item testimonial_link" id="temoignage-12">
+						<div class="testimonial_down"></div>
+						<table class="testimonial_txt" cellpadding="0" cellspacing="0"><tr><td valign="center">
+							<p>
+								(...) Du c&ocirc;t&eacute; de nos clients les retours sont excellents.
+								<br/>
+
+								(...) Nombre de commandes ont pu &ecirc;tre transform&eacute;es via izd.
+							</p>							
+						</td></tr></table>	
+						<div class="testimonial_autor">Fran&ccedil;ois Huet,<span>Rentashop</span></div>	
+					</div>
+					<div class="testimonial_item">
+						<div class="testimonial_partners">
+							<p>Some text</p>
+
+							<h4><a href="#" title="Magento" target="_blank"><img class="icon_magento" src="" title="Magento" alt="Magento"/></a></h4>
+							<h4><a href="#" title="42stores" target="_blank"><img class="icon_42stores" src="" title="42stores" alt="42stores"/></a></h4>
+							<h4><a href="#" title="Wizishop" target="_blank"><img class="icon_wizishop" src="" title="Wizishop" alt="Wizishop"/></a></h4>
+							<h4><a href="#" title="Mobshop" target="_blank"><img class="icon_mobshop" src="" title="Mobshop" alt="Mobshop"/></a></h4>
+							<h4><a href="#" title="Kiubi" target="_blank"><img class="icon_kiubi" src="" title="Kiubi" alt="Kiubi"/></a></h4>
+							<h4><a href="#" title="Rentashop" target="_blank"><img class="icon_rentashop" src="" title="Rentashop" alt="Rentashop"/></a></h4>
+							<div class="clearer"></div>
+						</div>
+					</div>					
+
+					<div class="clearer"></div>
+
+				</div>
+			</div>
+		</div>	
+	</div>	
+
+	<div class="try_izd"></div>	
+
+		</div> <!-- END id="maindiv" -->
+	</div> <!-- END id="mainwide" -->
+
+	<div id='footer'>
+		<div id="footercontext">
+
+			<div id="footercontextwide">
+				<div id="footercontextcenter">
+					<div class="footer_twitter footer_item left footer_separator"><div class="footer_item_inner">
+						<div class="footer_title icon_twitter"><a href="#" target="_blank">Suivez-nous sur Twitter</a></div>
+						<div class="footer_twitter_item">
+							<div class="footer_twitter_top"></div>
+							Merci Arnaud :) // RT @Arnaud_dS  Bravo à @izd pour leur évolution multi-site et multi-lingue! C'est une très bonne nouvelle! :-)						</div>
+					</div></div>
+
+					<div class="footer_navigation footer_item left footer_separator"><div class="footer_item_inner">
+						<div class="footer_title">Navigation</div>
+						<ul class="footer_links left">
+							<li><a href="#">Offres et tarifs</a></li>
+							<li><a href="#">Accès client</a></li>
+							<li><a href="#" target="_blank">Le tweet du Génie </a></li>
+							<li><a href="#" target="_blank">Le blog du Génie</a></li>
+
+							<li><a href="#">Le laboratoire</a></li>
+						</ul>	
+						<ul class="footer_links right">
+							<li><a href="#">Nous contacter</a></li>
+							<li><a href="#">Assistance</a></li>														
+							<li><a href="#">Mentions légales</a></li>
+							<li><a href="#">Nos CGU</a></li>
+
+							<li><a href="#">Live Chat</a></li>
+							<li><a href="#">Click to Chat</a></li>
+						</ul>			
+						<div class="clearer"></div>				
+					</div></div>
+					<div class="footer_newsletter footer_item left"><div class="footer_item_inner">
+						<div class="footer_title">Recevez notre lettre d'actualité</div>
+						<div class="">Recevez chaque mois une lettre d'actualité dédiée aux techniques vous permettant d'améliorer votre relation client.</div>
+
+						<form action="" method="post" id="footer_newletterform" name="footer_newletterform">							
+							<input id="nlemail" type="text" name="footer_newsletter_mail" class="footer_newsletter_mail input_skin left" value="Votre email"/>
+							<input id="nlbutton" type="button" name="footer_newsletter_post" class="footer_newsletter_post input_submit_skin" value=""/>
+							<div class="mail"></div>
+						</form>
+					</div></div>
+					<iframe src="about:blank"><div>Test</div></iframe>
+					<div class="clearer"></div>
+				</div>
+			</div>	
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(function(){
+		runTest();
+	});
+</script>
+</body>
+</html>
