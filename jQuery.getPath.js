@@ -3,7 +3,7 @@
 
   http://blog.geekfg.net/2010/06/trouver-le-selecteur-jquery-dun-element.html
 
-  Copyright (c)2007 Dave Cardwell. All rights reserved.
+  Copyright (c)2010 Francois-Guillaume Ribreau. All rights reserved.
   Released under the MIT License.
 
 
