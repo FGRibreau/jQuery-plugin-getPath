@@ -4,8 +4,8 @@
   http://blog.geekfg.net/2010/06/trouver-le-selecteur-jquery-dun-element.html
 
   Copyright (c)2010 Francois-Guillaume Ribreau. All rights reserved.
-  Released under the MIT License.
-
+  Released under the Creative Commons BY-SA Conditions.
+    http://creativecommons.org/licenses/by-sa/3.0/
 
   Usage:
   var path = $('#foo').getPath();
