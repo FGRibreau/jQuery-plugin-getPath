@@ -5,103 +5,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<title>jQuery getPath - Tests</title>
-	<style type="text/css" media="screen">
-	#frame {display:none;}
-	
-	/* quick & dirty */
-	*{padding:0;margin:0;list-style:none;}
-	#test_res{text-align:center;padding-top:10px;}
-	#test_res,#test_pass, #test_fail{
-	padding:0;margin:0;font-size:15px;font-family:'Helvetiva';
-	width:100%;overflow:auto;}
-	
-	#test_pass,#test_fail{height:100px;width:48%;float:left;padding:1%;}
-	#test_pass{color:#88EF3B;}
-	#test_fail{color:#FF7F7F;}
-	</style>
 	
 	<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
+	<script type="text/javascript" charset="utf-8" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
+	<link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" charset="utf-8">
+	<style type="text/css" media="screen">
+		#qunit-fixture {display:none;}
+	</style>
 	<script type="text/javascript" charset="utf-8" src="../jQuery.getPath.js"></script>
-	<script type="text/javascript" charset="utf-8" src="othersjQueryPlugins/jQuery.getPathByDaveCardwell.js"></script>
-	<script type="text/javascript" charset="utf-8" src="othersjQueryPlugins/jQuery.getPathByBlixt.js"></script>
-
-	<script type="text/javascript" charset="utf-8">
-		function runTest(){
-			var pass = 0,
-				fail = 0,
-				$elmts = $('body').add('*').add(document).add(window),
-				elmtsLgth = $elmts.length-1,
-				i = 0,
-				$results = $('#test_res'),
-				$pass = $('#test_pass ul'),
-				$_pass = $('<div/>'),
-				$fail = $('#test_fail ul'),
-				$_fail = $('<div/>');
-			
-			var t = +(new Date);
-			
-			updateResult();
-			
-			function testNextElmt(){
-				if(i > elmtsLgth){
-					updateResult(true);
-					
-					if(pass == elmtsLgth+1){
-						$('#test_res').text($('#test_res').text() + ' with success !');
-					}
-					
-					$pass.append($_pass);
-					$fail.append($_fail);
-					
-					$('#test_res').text($('#test_res').text() + ' In '+((+(new Date)-t)/1000) + ' secs.');
-					return;
-				}
-				
-				$elmts.eq(i).attr('rel',i);
-				
-				var path = $elmts.eq(i).getPath(), $el;
-				//var path = $elmts.eq(i).getPathByBlixtv2(), $el = null;
-				
-				if(path === 'jQueryPath_document')
-					$el = $(document);
-				else if(path === 'jQueryPath_window')
-					$el = $(window);
-				else
-					$el = $(path);
-				
-				if($el && $el.length == 1 && $el.attr('rel') == i){
-					pass++;
-					$_pass.prepend('<li>' + path +'</li>');
-				}else{
-					console && console.log && console.log($elmts[i]);
-					
-					fail++;
-					$_fail.prepend('<li>'+path+'</li>');
-				}
-				
-				i++;
-				window.setTimeout(function(){testNextElmt();});
-			}
-			
-			function updateResult(done){
-				$('#test_res').text(pass + ' Pass || ' + fail + ' Fail '+(done ? '... All test done' : '... and testing'));
-			}
-			
-			testNextElmt();
-		}
-	</script>
+	
+	<script type="text/javascript" charset="utf-8" src="./test.js"></script>
 </head>
 <body>
-	<div id="test_res"></div>
-	<div id="test_pass"><ul></ul></div>
-	<div id="test_fail"><ul></ul></div>
-	
-	<div id="test2_res"></div>
-	<div id="test2_pass"><ul></ul></div>
-	<div id="test2_fail"><ul></ul></div>
-	
-<div id="frame">
+
+<h1 id="qunit-header">jQuery getPath - QUnit Test Suite</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">
 	<div id="topbarwide">
 		<div id="topbar">
 			<h1><a href="#" class="logo" title="Chat Commercial - izd">izd</a></h1>
@@ -469,13 +391,8 @@
 		</div>
 
 	</div>
-
+	
+	
 </div>
-
-<script type="text/javascript" charset="utf-8">
-	$(function(){
-		runTest();
-	});
-</script>
 </body>
 </html>
