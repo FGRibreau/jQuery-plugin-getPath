@@ -1,4 +1,5 @@
 # jQuery getPath [![Gittip](http://badgr.co/gittip/fgribreau.png)](https://www.gittip.com/fgribreau/)
+------------------
 
 In some specific situations you may want to identify an HTML element in an unique way - with a jQuery Selector or XPath - in order to select it in another browser - different DOM - (for example: visitor mouse & keyboard real-time monitoring).
 
@@ -35,3 +36,6 @@ They just are equivalents for window.document and window object because jQuery d
 		$el = $(path);
 		
 	//So here, $el == window
+
+## Donate
+[Donate Bitcoins](https://coinbase.com/checkouts/fc3041b9d8116e0b98e7d243c4727a30)
